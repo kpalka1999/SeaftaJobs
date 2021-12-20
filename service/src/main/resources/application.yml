@@ -1,0 +1,35 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          auth0:
+            client-id: php4koPkHcap13jQ246bBbyxEFVZFCW6
+            client-secret: qjfXit-LuG9uVKxYfz0fJLDHr6m1hZjSvv4rHcrFIxdztskgk9rcPbsGWYAtDnK9
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          auth0:
+            # trailing slash is important!
+            issuer-uri: https://dev-8pf64q4c.us.auth0.com/
+
+  datasource:
+    password: seaftajobs
+    url: jdbc:postgresql://localhost:5432/seaftajobsDB
+    username: seaftajobs
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
