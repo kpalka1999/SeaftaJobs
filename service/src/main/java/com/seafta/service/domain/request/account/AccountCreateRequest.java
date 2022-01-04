@@ -1,4 +1,4 @@
-package com.seafta.service.domain.request;
+package com.seafta.service.domain.request.account;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -7,8 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @Builder
@@ -24,5 +26,16 @@ public class AccountCreateRequest {
 
     @NotBlank
     @Schema(example = "password")
+    @Size(min = 4, max = 20)
     private String password;
+
+    @NotBlank
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
+
+    private String description;
+
+    private String gitHubUrl;
 }

@@ -1,7 +1,7 @@
-package com.seafta.service.domain;
+package com.seafta.service.domain.persistence.model.account;
 
-import com.seafta.service.domain.request.AccountCreateRequest;
-import com.seafta.service.domain.request.AccountUpdateRequest;
+import com.seafta.service.domain.request.account.AccountCreateRequest;
+import com.seafta.service.domain.request.account.AccountUpdateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +48,17 @@ public class Account {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    private String description;
+
+    @Column(name = "git_hub_url")
+    private String gitHubUrl;
+
     @NotNull
     private OffsetDateTime created;
 
@@ -64,10 +75,14 @@ public class Account {
 
     public static Account buildUserAccount(@NotNull @Valid AccountCreateRequest request,
                                         @NotNull PasswordEncoder passwordEncoder) {
-        AccountRole role = AccountRole.buildUserRole();
+        AccountRole role = AccountRole.buildUserRole(AccountRole.RoleType.USER);
         Account account = Account.builder()
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .description(request.getDescription())
+                .gitHubUrl(request.getGitHubUrl())
                 .created(OffsetDateTime.now(Clock.systemUTC()))
                 .modified(OffsetDateTime.now(Clock.systemUTC()))
                 .lastLogout(OffsetDateTime.now(Clock.systemUTC()))
@@ -75,11 +90,12 @@ public class Account {
                 .build();
         role.setAccount(account);
         return account;
-
     }
     public Account editAccount(@NotNull @Valid AccountUpdateRequest request) {
-        //todo
-        this.email = request.getEmail();
+        this.firstName = request.getFirstName();
+        this.lastName = request.getLastName();
+        this.description = request.getDescription();
+        this.gitHubUrl = request.getGitHubUrl();
         this.modified = OffsetDateTime.now(Clock.systemUTC());
         return this;
     }

@@ -1,13 +1,13 @@
 package com.seafta.service.boundary.account;
 
-import com.seafta.service.domain.Account;
+import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.dto.account.AccountDetails;
 import com.seafta.service.domain.dto.account.AccountSnapshot;
 import com.seafta.service.domain.dto.account.AccountUpdatedSnapshot;
-import com.seafta.service.domain.request.AccountCreateRequest;
-import com.seafta.service.domain.request.AccountUpdatePasswordRequest;
-import com.seafta.service.domain.request.AccountUpdateRequest;
-import com.seafta.service.domain.service.AccountService;
+import com.seafta.service.domain.request.account.AccountCreateRequest;
+import com.seafta.service.domain.request.account.AccountUpdatePasswordRequest;
+import com.seafta.service.domain.request.account.AccountUpdateRequest;
+import com.seafta.service.domain.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.owasp.security.logging.SecurityMarkers;

@@ -1,6 +1,6 @@
 package com.seafta.service.domain.mapping;
 
-import com.seafta.service.domain.Account;
+import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.dto.account.AccountDetails;
 import com.seafta.service.domain.dto.account.AccountSnapshot;
 import com.seafta.service.domain.dto.account.AccountUpdatedSnapshot;
