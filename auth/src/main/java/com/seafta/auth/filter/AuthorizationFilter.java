@@ -13,6 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -35,10 +36,11 @@ public class AuthorizationFilter extends OncePerRequestFilter {
         if(request.getServletPath().equals("/login") || request.getServletPath().equals("/api/token/refresh")) {
             filterChain.doFilter(request, response);
         } else {
-            String authorizationHeader = request.getHeader(AUTHORIZATION);
-            if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String test = "Bearer";
+            if(test.startsWith("Bearer")) {
                 try {
-                    String token = authorizationHeader.substring("Bearer ".length());
+                    String cookieValue = getCookie(request.getCookies());
+                    String token = cookieValue.substring("Bearer".length());
                     Algorithm algorithm = Algorithm.HMAC256(SECRET.getBytes(StandardCharsets.UTF_8));
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
@@ -55,7 +57,6 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                     log.error("Error logging in: {}", exception.getMessage());
                     response.setHeader("error", exception.getMessage());
                     response.setStatus(FORBIDDEN.value());
-//                    response.sendError(FORBIDDEN.value());
                     Map<String, String> error = new HashMap<>();
                     error.put("error_message", exception.getMessage());
                     response.setContentType(APPLICATION_JSON_VALUE);
@@ -65,5 +66,23 @@ public class AuthorizationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
             }
         }
+    }
+
+    public String getCookie(Cookie[] cookies) {
+        String cookieValue = "";
+        if(cookies == null) {
+            throw new RuntimeException("Token not Found");
+        } else {
+            for(Cookie c: cookies) {
+                if(c.getName().equals("access_token")) {
+                    if (c.getValue() == null) {
+                        throw new RuntimeException("Token is empty");
+                    } else {
+                    cookieValue = c.getValue();
+                    }
+                }
+            }
+        }
+        return cookieValue;
     }
 }

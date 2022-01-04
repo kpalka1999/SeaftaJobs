@@ -67,38 +67,38 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 
     @Override
     public Account getAccountByUsername(@NotNull String username) {
-        log.trace(SecurityMarkers.CONFIDENTIAL, "Getting account by username {username: {}}", username);
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Service: Getting account by username {username: {}}", username);
         Account result = accountRepository.findByEmail(username);
-        log.debug(SecurityMarkers.CONFIDENTIAL, "Got account by username {username: {}, result: {}}", username, result);
+        log.debug(SecurityMarkers.CONFIDENTIAL, "Service: Got account by username {username: {}, result: {}}", username, result);
         return result;
     }
 
     @Override
     public List<Account> getAccounts() {
-        log.trace(SecurityMarkers.CONFIDENTIAL, "Getting accounts");
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Service: Getting accounts");
         return accountRepository.findAll();
     }
 
     @Override
     public void deleteAccount(@NotNull  UUID accountId) {
-        log.trace(SecurityMarkers.CONFIDENTIAL, "Deleting account {accountId: {}}", accountId);
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Service: Deleting account {accountId: {}}", accountId);
         accountRepository.deleteById(accountId);
-        log.debug(SecurityMarkers.CONFIDENTIAL, "Deleted account {accountId: {}}", accountId);
+        log.debug(SecurityMarkers.CONFIDENTIAL, "Service: Deleted account {accountId: {}}", accountId);
     }
 
     @Override
     public void changePassword(@NotNull UUID accountId, @NotNull @Valid AccountUpdatePasswordRequest request) {
-    log.trace(SecurityMarkers.CONFIDENTIAL, "Changing account password {accountId: {}, request: {}}", accountId, request);
+    log.trace(SecurityMarkers.CONFIDENTIAL, "Service: Changing account password {accountId: {}, request: {}}", accountId, request);
     Account account = accountRepository.getOne(accountId);
     validatePassword(account.getPasswordHash(), request);
     String newPasswordHash = passwordEncoder.encode(request.getNewPassword());
     account.setPasswordHash(newPasswordHash);
     accountRepository.save(account);
-    log.debug(SecurityMarkers.CONFIDENTIAL, "Changed account password {accountId: {}}", account);
+    log.debug(SecurityMarkers.CONFIDENTIAL, "Service: Changed account password {accountId: {}}", account);
     }
 
     private boolean validatePassword(String passwordHash, AccountUpdatePasswordRequest request) {
-        log.trace("Checking validate account password");
+        log.trace("Service: Checking validate account password");
         if(passwordHash.isEmpty()) {
             log.error("Password has null value");
             throw new RuntimeException("Password has null value");
@@ -108,14 +108,13 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
             log.error("Given password does not match");
             throw new RuntimeException("Given password does not match");
         }
-        log.debug("Password validated");
+        log.debug("Service: Password validated");
         return status;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //Email from the request is the username
-        //todo Given passwordHash instead of password
         Account account = accountRepository.findByEmail(email);
         if(account ==null) {
             log.error("User not found in the database");
