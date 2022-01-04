@@ -1,14 +1,14 @@
-package com.seafta.service.domain.service;
+package com.seafta.service.domain.service.account;
 
-import com.seafta.service.domain.Account;
+import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.dto.account.AccountDetails;
 import com.seafta.service.domain.dto.account.AccountSnapshot;
 import com.seafta.service.domain.dto.account.AccountUpdatedSnapshot;
 import com.seafta.service.domain.mapping.AccountMapper;
-import com.seafta.service.domain.request.AccountCreateRequest;
-import com.seafta.service.domain.request.AccountUpdatePasswordRequest;
-import com.seafta.service.domain.request.AccountUpdateRequest;
-import com.seafta.service.repository.AccountRepository;
+import com.seafta.service.domain.request.account.AccountCreateRequest;
+import com.seafta.service.domain.request.account.AccountUpdatePasswordRequest;
+import com.seafta.service.domain.request.account.AccountUpdateRequest;
+import com.seafta.service.domain.persistence.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.owasp.security.logging.SecurityMarkers;
@@ -124,7 +124,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         account.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority(role.getName().toString()));
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
         return new User(account.getEmail(), account.getPasswordHash(), authorities);
     }

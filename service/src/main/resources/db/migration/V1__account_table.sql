@@ -2,6 +2,10 @@ CREATE TABLE account (
     id              uuid               NOT NULL,
     email           text               NOT NULL,
     password_hash   text               NOT NULL,
+    first_name      text,
+    last_name       text,
+    description     text,
+    git_hub_url     text,
     created         timestamp          NOT NULL,
     modified        timestamp          NOT NULL,
     last_logout     timestamp          NOT NULL

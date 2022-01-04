@@ -1,14 +1,13 @@
 package com.seafta.service.boundary.account;
 
-import com.seafta.service.domain.Account;
+import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.dto.account.AccountDetails;
 import com.seafta.service.domain.dto.account.AccountSnapshot;
 import com.seafta.service.domain.dto.account.AccountUpdatedSnapshot;
-import com.seafta.service.domain.request.AccountCreateRequest;
-import com.seafta.service.domain.request.AccountUpdatePasswordRequest;
-import com.seafta.service.domain.request.AccountUpdateRequest;
+import com.seafta.service.domain.request.account.AccountCreateRequest;
+import com.seafta.service.domain.request.account.AccountUpdatePasswordRequest;
+import com.seafta.service.domain.request.account.AccountUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@RequestMapping("accounts")
+@RequestMapping("/accounts")
 public interface AccountApi {
 
     //todo add permission @PreAuthorize()
@@ -58,7 +57,7 @@ public interface AccountApi {
     void deleteAccount(@PathVariable("accountId") UUID accountId);
 
     @Operation(summary = "UpdatePasswordAccount", description = "ACCOUNT_PASSWORD_UPDATE_PUT")
-    @PutMapping(value = "/{accountId}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{accountId}/password", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     void changePasswordAccount(@PathVariable("accountId") UUID accountId, @RequestBody @Valid AccountUpdatePasswordRequest request);
 }

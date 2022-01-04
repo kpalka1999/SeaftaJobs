@@ -1,4 +1,4 @@
-package com.seafta.service.domain.request;
+package com.seafta.service.domain.request.account;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -23,6 +23,6 @@ public class AccountUpdatePasswordRequest {
   private String newPassword;
 
   @NotBlank
-  @Schema(example = "repeatPassword")
+  @Schema(example = "newPassword")
   private String repeatPassword;
 }

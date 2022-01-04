@@ -1,10 +1,8 @@
-package com.seafta.service.domain;
+package com.seafta.service.domain.persistence.model.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,14 +48,15 @@ public class AccountRole {
     @JsonIgnore
     private Account account;
 
-    public static AccountRole buildUserRole() {
+    public static AccountRole buildUserRole(RoleType type) {
         return AccountRole.builder()
-                .name(RoleType.USER)
+                .name(type)
                 .build();
     }
 
     public enum RoleType {
         USER,
+        COMPANY,
         ADMIN
     }
 

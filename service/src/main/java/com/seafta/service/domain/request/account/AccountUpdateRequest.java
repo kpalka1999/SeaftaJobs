@@ -1,4 +1,4 @@
-package com.seafta.service.domain.request;
+package com.seafta.service.domain.request.account;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,9 +16,16 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class AccountUpdateRequest {
 
-    @Email
     @NotBlank
-    @Schema(example = "test@gmail.com")
-    private String email;
+    private String firstName;
+
+    @NotBlank
+    private String lastName;
+
+    @NotBlank
+    private String description;
+
+    @NotBlank
+    private String gitHubUrl;
 
 }
