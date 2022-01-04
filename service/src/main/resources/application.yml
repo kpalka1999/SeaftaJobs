@@ -5,6 +5,8 @@ server:
   port: 8080
 
 spring:
+  resources:
+    static-locations: /resources/static/logo.jpg
   security:
     oauth2:
       client:
@@ -20,14 +22,19 @@ spring:
           auth0:
             # trailing slash is important!
             issuer-uri: https://dev-8pf64q4c.us.auth0.com/
-
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:/db/migration
+    table: z_schema_version
+    placeholder-replacement: false
   datasource:
     password: seaftajobs
-    url: jdbc:postgresql://localhost:5432/seaftajobsDB
+    url: jdbc:postgresql://localhost:5432/seaftajobsdb
     username: seaftajobs
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
