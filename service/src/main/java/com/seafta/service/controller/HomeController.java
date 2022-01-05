@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
@@ -32,6 +33,7 @@ import static com.seafta.auth.utils.SecurityConstants.EXPIRATION_TIME;
 import static com.seafta.auth.utils.SecurityConstants.SECRET;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -41,6 +43,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class HomeController {
 
     private final AccountService accountService;
+
+    @GetMapping("/test")
+    @ResponseStatus(OK)
+    public String getTest() {
+        return "JD";
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<Account>> getAccount() {

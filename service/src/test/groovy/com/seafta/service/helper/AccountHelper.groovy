@@ -51,7 +51,7 @@ class AccountHelper {
             .build()
     }
 
-    static AccountUpdatePasswordRequest buildAccountUpdatePasswordRequest(String oldPassword = "oldPassword",
+    static AccountUpdatePasswordRequest buildAccountUpdatePasswordRequest(String oldPassword = "password",
                                                                           String newPassword = "newPassword",
                                                                           String repeatPassword = "newPassword") {
 
@@ -62,13 +62,13 @@ class AccountHelper {
             .build()
     }
 
-    static AccountUpdateRequest buildAccountUpdateRequest(String firstName = "firstName",
-                                                          String lastName = "lastName",
-                                                          String description = "description",
-                                                          String gitHubUrl = "gitHubUrl") {
+    static AccountUpdateRequest buildAccountUpdateRequest(String firstName = "firstNameUpdated",
+                                                          String lastName = "lastNameUpdated",
+                                                          String description = "descriptionUpdated",
+                                                          String gitHubUrl = "gitHubUrlUpdated") {
 
         AccountUpdateRequest.builder()
-            firstName(firstName)
+            .firstName(firstName)
             .lastName(lastName)
             .description(description)
             .gitHubUrl(gitHubUrl)

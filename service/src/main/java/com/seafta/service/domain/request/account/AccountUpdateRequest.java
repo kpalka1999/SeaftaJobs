@@ -16,16 +16,12 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class AccountUpdateRequest {
 
-    @NotBlank
     private String firstName;
 
-    @NotBlank
     private String lastName;
 
-    @NotBlank
     private String description;
 
-    @NotBlank
     private String gitHubUrl;
 
 }

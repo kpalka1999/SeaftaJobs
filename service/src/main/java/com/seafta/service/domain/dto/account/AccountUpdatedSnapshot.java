@@ -20,4 +20,12 @@ public class AccountUpdatedSnapshot {
 
   @NotNull
   private String email;
+
+  private String firstName;
+
+  private String lastName;
+
+  private String description;
+
+  private String gitHubUrl;
 }
