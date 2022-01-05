@@ -23,4 +23,6 @@ public class AccountSnapshot {
   @Schema(example = "test@gmail.com")
   private String email;
 
+  private String passwordHash;
+
 }

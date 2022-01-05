@@ -21,4 +21,12 @@ public class AccountDetails {
   @NotNull
   @Schema(example = "test@gmail.com")
   private String email;
+
+  private String firstName;
+
+  private String lastName;
+
+  private String description;
+
+  private String gitHubUrl;
 }

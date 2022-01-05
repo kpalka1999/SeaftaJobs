@@ -1,4 +1,4 @@
-package com.seafta.service.domain.mapping;
+package com.seafta.service.domain.mapping.account;
 
 import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.dto.account.AccountDetails;
