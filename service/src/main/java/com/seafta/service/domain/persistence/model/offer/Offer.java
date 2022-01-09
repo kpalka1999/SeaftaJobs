@@ -1,10 +1,12 @@
 package com.seafta.service.domain.persistence.model.offer;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.persistence.model.enums.Level;
 import com.seafta.service.domain.persistence.model.enums.Location;
-import com.seafta.service.domain.persistence.model.enums.StackLevel;
 import com.seafta.service.domain.persistence.model.enums.Technology;
+import com.seafta.service.domain.request.offer.OfferCreateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,12 +18,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.time.Clock;
+import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.UUID;
 
 @Entity
@@ -46,9 +51,32 @@ public class Offer {
 
     private String description;
 
+    @NotNull
+    private OffsetDateTime created;
+
     @OneToMany(mappedBy = "offer",
                cascade = CascadeType.ALL,
                fetch = FetchType.EAGER)
     private Set<Stack> technologyStack;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
+    @JsonIgnore
+    private Account account;
+
+    public static Offer buildOffer(@NotNull @Valid OfferCreateRequest request) {
+        Set<Stack> stacks = request.getTechnologyStack();
+        Offer offer = Offer.builder()
+                .companyName(request.getCompanyName())
+                .level(request.getLevel())
+                .location(request.getLocation())
+                .technology(request.getTechnology())
+                .description(request.getDescription())
+                .created(OffsetDateTime.now(Clock.systemUTC()))
+                .technologyStack(stacks)
+                .build();
+        stacks.forEach(stack -> stack.setOffer(offer));
+        return offer;
+    }
 
 }

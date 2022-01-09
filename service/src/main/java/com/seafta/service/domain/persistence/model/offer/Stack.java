@@ -1,6 +1,7 @@
 package com.seafta.service.domain.persistence.model.offer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.seafta.service.domain.persistence.model.account.AccountRole;
 import com.seafta.service.domain.persistence.model.enums.StackLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,4 +40,16 @@ public class Stack {
     @JoinColumn(name = "offer_id", nullable = false)
     @JsonIgnore
     private Offer offer;
+
+
+    public static Stack buildStack(String name, StackLevel level) {
+        return Stack.builder()
+                .name(name)
+                .stackLevel(level)
+                .build();
+    }
+
+    public String getStackLevel() {
+        return this.stackLevel.toString();
+    }
 }

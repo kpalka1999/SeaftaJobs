@@ -1,5 +1,6 @@
 package com.seafta.service.domain.persistence.model.account;
 
+import com.seafta.service.domain.persistence.model.offer.Offer;
 import com.seafta.service.domain.request.account.AccountCreateRequest;
 import com.seafta.service.domain.request.account.AccountUpdateRequest;
 import lombok.AllArgsConstructor;
@@ -70,6 +71,11 @@ public class Account {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private Set<AccountRole> roles;
+
+    @OneToMany(mappedBy = "account",
+               cascade = CascadeType.ALL,
+               fetch = FetchType.EAGER)
+    private Set<Offer> offers;
 
     public static Account buildUserAccount(@NotNull @Valid AccountCreateRequest request,
                                         @NotNull PasswordEncoder passwordEncoder) {
