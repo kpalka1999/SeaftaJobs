@@ -1,4 +1,4 @@
-package com.seafta.service.domain.service
+package com.seafta.service.domain.service.account
 
 import com.seafta.service.IntegrationTest
 import com.seafta.service.comparator.AccountComparator

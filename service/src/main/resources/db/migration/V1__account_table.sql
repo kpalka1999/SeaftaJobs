@@ -1,5 +1,6 @@
 CREATE TABLE account (
     id              uuid               NOT NULL,
+    account_id      uuid               NOT NULL,
     email           text               NOT NULL,
     password_hash   text               NOT NULL,
     first_name      text,

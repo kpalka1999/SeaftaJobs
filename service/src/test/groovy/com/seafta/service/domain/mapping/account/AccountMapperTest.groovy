@@ -35,19 +35,19 @@ class AccountMapperTest extends Specification {
 
     def "should map Account to AccountDetails"() {
         given:
-        Account account = accountRepository.save(AccountHelper.buildAccount())
+            Account account = accountRepository.save(AccountHelper.buildAccount())
         when:
-        AccountDetails details = mapper.toAccountDetails(account)
+            AccountDetails details = mapper.toAccountDetails(account)
         then:
-        AccountComparator.compare(account, details)
+            AccountComparator.compare(account, details)
     }
 
     def "should map Account to AccountUpdatedSnapshot"() {
         given:
-        Account account = accountRepository.save(AccountHelper.buildAccount())
+            Account account = accountRepository.save(AccountHelper.buildAccount())
         when:
-        AccountUpdatedSnapshot snapshot = mapper.toAccountUpdatedSnapshot(account)
+            AccountUpdatedSnapshot snapshot = mapper.toAccountUpdatedSnapshot(account)
         then:
-        AccountComparator.compare(account, snapshot)
+            AccountComparator.compare(account, snapshot)
     }
 }

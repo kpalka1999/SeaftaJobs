@@ -42,6 +42,9 @@ public class Offer {
     @GeneratedValue
     private UUID id;
 
+    @Column(name = "account_id")
+    private UUID accountId;
+
     @Column(name = "company_name")
     private String companyName;
 
@@ -61,14 +64,10 @@ public class Offer {
                fetch = FetchType.EAGER)
     private Set<Stack> technologyStack;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false)
-    @JsonIgnore
-    private Account account;
-
     public static Offer buildOffer(@NotNull @Valid OfferCreateRequest request) {
         Set<Stack> stacks = request.getTechnologyStack();
         Offer offer = Offer.builder()
+                .accountId(request.getAccountId())
                 .companyName(request.getCompanyName())
                 .level(request.getLevel())
                 .location(request.getLocation())

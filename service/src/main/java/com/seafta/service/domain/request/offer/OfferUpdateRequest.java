@@ -13,6 +13,7 @@ import lombok.ToString;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -20,6 +21,9 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class OfferUpdateRequest {
+
+    @NotNull
+    private UUID accountId;
 
     @NotBlank
     private String companyName;
