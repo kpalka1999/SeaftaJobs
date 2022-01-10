@@ -53,9 +53,11 @@ class AccountServiceTest extends Specification {
             Account account = accountRepository.saveAndFlush(AccountHelper.buildAccount())
             AccountUpdateRequest request = AccountHelper.buildAccountUpdateRequest()
         when:
-            AccountUpdatedSnapshot result = accountService.updateAccount(account.id, request)
+            accountService.updateAccount(account.id, request)
+            Account result = accountRepository.getOne(account.id);
+
         then:
-            AccountComparator.compare(request, result)
+            AccountComparator.compare(result, request)
     }
 
     def "should update password"() {

@@ -1,5 +1,6 @@
 package com.seafta.service;
 
+import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.request.account.AccountCreateRequest;
 import com.seafta.service.domain.service.account.AccountService;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +22,7 @@ public class SeaftaJobsApplication {
 //    CommandLineRunner run(AccountService accountService) {
 //        return args -> {
 //            accountService.createAccount(AccountCreateRequest.builder()
-//                    .email("test623@gmail.com")
+//                    .email("test615@gmail.com")
 //                    .password("password")
 //                    .firstName("elo")
 //                    .lastName("320")

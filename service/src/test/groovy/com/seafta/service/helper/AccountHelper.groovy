@@ -18,8 +18,7 @@ class AccountHelper {
                                 String description = "description",
                                 String gitHubUrl = "gitHubUrl",
                                 OffsetDateTime created = OffsetDateTime.now(Clock.systemUTC()),
-                                OffsetDateTime modified = OffsetDateTime.now(Clock.systemUTC()),
-                                OffsetDateTime lastLogout = OffsetDateTime.now(Clock.systemUTC())) {
+                                OffsetDateTime modified = OffsetDateTime.now(Clock.systemUTC())) {
         Account.builder()
             .id(id)
             .email(email)
@@ -30,7 +29,6 @@ class AccountHelper {
             .gitHubUrl(gitHubUrl)
             .created(created)
             .modified(modified)
-            .lastLogout(lastLogout)
             .build()
     }
 
