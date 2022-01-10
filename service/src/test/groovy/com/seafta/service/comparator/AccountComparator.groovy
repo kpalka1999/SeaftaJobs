@@ -47,4 +47,12 @@ class AccountComparator {
         assert request.gitHubUrl == snapshot.gitHubUrl
         true
     }
+
+    static boolean compare(Account account, AccountUpdateRequest request) {
+        assert request.firstName == account.firstName
+        assert request.lastName == account.lastName
+        assert request.description == account.description
+        assert request.gitHubUrl == account.gitHubUrl
+        true
+    }
 }

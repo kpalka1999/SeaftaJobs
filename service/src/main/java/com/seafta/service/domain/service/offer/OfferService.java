@@ -18,8 +18,8 @@ import java.util.UUID;
 public interface OfferService {
     OfferSnapshot createOffer(@NotNull @Valid OfferCreateRequest request);
     OfferDetails getOffer(@NotNull UUID offerId);
-    OfferUpdatedSnapshot updateOffer(@NotNull @Valid OfferUpdateRequest request);
-    List<Offer> getOffers(Level level, Location location, Technology technology);
+    OfferUpdatedSnapshot updateOffer(@NotNull UUID offerId, @NotNull @Valid OfferUpdateRequest request);
+    List<Offer> getOffers(@NotNull Level level, @NotNull Location location, @NotNull Technology technology);
+    List<Offer> getOffersByAccount(@NotNull UUID accountId);
     void deleteOffer(@NotNull UUID offerId);
-    void changeOffer(@NotNull UUID offerId, @NotNull @Valid OfferUpdateRequest request);
 }

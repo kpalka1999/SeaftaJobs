@@ -43,28 +43,42 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public OfferDetails getOffer(@NotNull UUID offerId) {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Getting offer {offerId: {}}", offerId);
-
-        log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Getting offer {offerId: {}}", offerId);
-        return null;
+        Offer offer = offerRepository.getOne(offerId);
+        OfferDetails result = offerMapper.toOfferDetails(offer);
+        log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Got offer {offerId: {}}", offerId);
+        return result;
     }
 
     @Override
-    public OfferUpdatedSnapshot updateOffer(OfferUpdateRequest request) {
-        return null;
+    public OfferUpdatedSnapshot updateOffer(@NotNull UUID offerId, @NotNull @Valid  OfferUpdateRequest request) {
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Updating offer {request: {}}", request);
+        Offer offer = offerRepository.getOne(offerId);
+        OfferUpdatedSnapshot result = offerMapper.toOfferUpdatedSnapshot(offer.editOffer(request));
+        offerRepository.save(offer);
+        log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Updated offer {result: {}}", result);
+        return result;
     }
 
     @Override
-    public List<Offer> getOffers(Level level, Location location, Technology technology) {
-        return null;
+    public List<Offer> getOffers(@NotNull Level level, @NotNull Location location, @NotNull Technology technology) {
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Getting offers by {level: {}, location: {}, technology: {}}", level, location, technology);
+        List<Offer> result = offerRepository.findAllByLevelAndLocationAndTechnology(level, location, technology);
+        log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Got offers {result: {}}", result);
+        return result;
     }
 
     @Override
-    public void deleteOffer(UUID offerId) {
-
+    public List<Offer> getOffersByAccount(@NotNull UUID accountId) {
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Getting offers by {accountId: {}}", accountId);
+        List<Offer> result = offerRepository.findAllByAccount_Id(accountId);
+        log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Got offers {result: {}}", result);
+        return result;
     }
 
     @Override
-    public void changeOffer(UUID offerId, OfferUpdateRequest request) {
-
+    public void deleteOffer(@NotNull UUID offerId) {
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Deleting offer {offerId: {}}", offerId);
+        offerRepository.deleteById(offerId);
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Deleted offer {offerId: {}}", offerId);
     }
 }

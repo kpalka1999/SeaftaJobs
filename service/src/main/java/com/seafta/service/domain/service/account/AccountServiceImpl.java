@@ -64,6 +64,7 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Updating account {accountId: {}, request: {}}", accountId, request);
         Account account = accountRepository.getOne(accountId);
         AccountUpdatedSnapshot result = accountMapper.toAccountUpdatedSnapshot(account.editAccount(request));
+        accountRepository.save(account);
         log.debug(SecurityMarkers.CONFIDENTIAL, "Updated account {accountId: {}, result {}}", accountId, result);
         return result;
     }

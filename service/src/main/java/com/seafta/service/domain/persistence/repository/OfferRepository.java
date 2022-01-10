@@ -14,4 +14,5 @@ import java.util.UUID;
 public interface OfferRepository extends JpaRepository<Offer, UUID> {
     Offer findByAccount_Email(String email);
     List<Offer> findAllByLevelAndLocationAndTechnology(Level level, Location location, Technology technology);
+    List<Offer> findAllByAccount_Id(UUID accountId);
 }

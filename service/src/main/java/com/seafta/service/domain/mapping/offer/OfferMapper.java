@@ -15,9 +15,9 @@ public interface OfferMapper {
     @Mapping(target = "offerId", source = "id")
     OfferSnapshot toOfferSnapshot(Offer offer);
 
-    @Mapping(target = "OfferId", source = "id")
+    @Mapping(target = "offerId", source = "id")
     OfferDetails toOfferDetails(Offer offer);
 
-    @Mapping(target = "OfferId", source = "id")
+    @Mapping(target = "offerId", source = "id")
     OfferUpdatedSnapshot toOfferUpdatedSnapshot(Offer offer);
 }
