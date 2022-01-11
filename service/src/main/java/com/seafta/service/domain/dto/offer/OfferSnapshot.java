@@ -3,6 +3,7 @@ package com.seafta.service.domain.dto.offer;
 
 import com.seafta.service.domain.persistence.model.enums.Level;
 import com.seafta.service.domain.persistence.model.enums.Location;
+import com.seafta.service.domain.persistence.model.enums.Technology;
 import com.seafta.service.domain.persistence.model.offer.Stack;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,9 @@ public class OfferSnapshot {
 
     @NotNull
     private Location location;
+
+    @NotNull
+    private Technology technology;
 
     @NotNull
     private String description;

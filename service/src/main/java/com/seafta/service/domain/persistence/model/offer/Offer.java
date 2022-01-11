@@ -1,8 +1,6 @@
 package com.seafta.service.domain.persistence.model.offer;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.persistence.model.enums.Level;
 import com.seafta.service.domain.persistence.model.enums.Location;
 import com.seafta.service.domain.persistence.model.enums.Technology;
@@ -19,12 +17,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -36,11 +33,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Offer {
+public class Offer implements Serializable {
 
     @Id
     @GeneratedValue
     private UUID id;
+
+    @Column(name = "account_id")
+    private UUID accountId;
 
     @Column(name = "company_name")
     private String companyName;
@@ -61,14 +61,10 @@ public class Offer {
                fetch = FetchType.EAGER)
     private Set<Stack> technologyStack;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id", nullable = false)
-    @JsonIgnore
-    private Account account;
-
     public static Offer buildOffer(@NotNull @Valid OfferCreateRequest request) {
         Set<Stack> stacks = request.getTechnologyStack();
         Offer offer = Offer.builder()
+                .accountId(request.getAccountId())
                 .companyName(request.getCompanyName())
                 .level(request.getLevel())
                 .location(request.getLocation())

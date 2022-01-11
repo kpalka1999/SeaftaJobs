@@ -1,6 +1,7 @@
 package com.seafta.service.helper
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -14,6 +15,7 @@ class WebHelper {
     WebHelper(ObjectMapper obj) {
         mapper = obj
         mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS)
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
     }
 
     UriComponentsBuilder buildQuery(String uri, Object request, Pageable pageable = null) {

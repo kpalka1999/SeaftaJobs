@@ -11,6 +11,7 @@ import com.seafta.service.domain.request.account.AccountUpdatePasswordRequest
 import com.seafta.service.domain.request.account.AccountUpdateRequest
 import com.seafta.service.helper.AccountHelper
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -26,6 +27,13 @@ class AccountControllerTest extends BaseSpecification {
     @Autowired
     private PasswordEncoder passwordEncoder
 
+    private static final String BASE_URL = "/accounts"
+    private static final String ACCOUNT_GET_URL = "${BASE_URL}/{accountId}"
+    private static final String ACCOUNT_UPDATE_URL = "${BASE_URL}/{accountId}"
+    private static final String ACCOUNT_DELETE_URL = "${BASE_URL}/{accountId}"
+    private static final String PASSWORD_UPDATE_URL = "${BASE_URL}/{accountId}/password"
+
+
     def cleanup() {
         accountRepository.deleteAll()
     }
@@ -34,7 +42,7 @@ class AccountControllerTest extends BaseSpecification {
         given:
             AccountCreateRequest request = AccountHelper.buildAccountCreateRequest()
         when:
-            ResponseEntity<AccountSnapshot> result = httpPost("/accounts", request, AccountSnapshot.class)
+            ResponseEntity<AccountSnapshot> result = httpPost(BASE_URL, request, AccountSnapshot.class)
         then:
             result.statusCode == HttpStatus.CREATED
             result.body.email == request.email
@@ -45,7 +53,7 @@ class AccountControllerTest extends BaseSpecification {
             AccountCreateRequest request = AccountHelper.buildAccountCreateRequest()
             request.setEmail("test")
         when:
-            ResponseEntity<AccountSnapshot> result = httpPost("/accounts", request, AccountSnapshot.class)
+            ResponseEntity<AccountSnapshot> result = httpPost(BASE_URL, request, AccountSnapshot.class)
         then:
             result.statusCode == HttpStatus.BAD_REQUEST
     }
@@ -55,7 +63,7 @@ class AccountControllerTest extends BaseSpecification {
             AccountCreateRequest request = AccountHelper.buildAccountCreateRequest()
             request.setPassword(null)
         when:
-            ResponseEntity<AccountSnapshot> result = httpPost("/accounts", request, AccountSnapshot.class)
+            ResponseEntity<AccountSnapshot> result = httpPost(BASE_URL, request, AccountSnapshot.class)
         then:
             result.statusCode == HttpStatus.BAD_REQUEST
     }
@@ -64,7 +72,7 @@ class AccountControllerTest extends BaseSpecification {
         given:
             Account account = accountRepository.saveAndFlush(AccountHelper.buildAccount())
         when:
-            ResponseEntity<AccountDetails> result = httpGet("/accounts/{accountId}", AccountDetails.class, account.id)
+            ResponseEntity<AccountDetails> result = httpGet(ACCOUNT_GET_URL, AccountDetails.class, account.id)
         then:
             result.statusCode ==HttpStatus.OK
             result.body.accountId == account.id
@@ -76,7 +84,7 @@ class AccountControllerTest extends BaseSpecification {
             AccountUpdateRequest request = AccountHelper.buildAccountUpdateRequest()
             request.setFirstName("firstNameUpdated")
         when:
-            ResponseEntity<AccountUpdatedSnapshot> result = httpPut("/accounts/{accountId}", request, AccountUpdatedSnapshot.class, account.id)
+            ResponseEntity<AccountUpdatedSnapshot> result = httpPut(ACCOUNT_UPDATE_URL, request, AccountUpdatedSnapshot.class, account.id)
         then:
         result.statusCode == HttpStatus.OK
         result.body.firstName == request.firstName
@@ -87,7 +95,7 @@ class AccountControllerTest extends BaseSpecification {
             Account account = accountRepository.saveAndFlush(AccountHelper.buildAccount())
             int numberOfAccounts = (int) accountRepository.count()
         when:
-            ResponseEntity<Account> result = httpDelete("/accounts/{accountId}", Account.class, account.id)
+            ResponseEntity<Account> result = httpDelete(ACCOUNT_DELETE_URL, Account.class, account.id)
         then:
             accountRepository.count() == 0
             numberOfAccounts == 1
@@ -99,7 +107,7 @@ class AccountControllerTest extends BaseSpecification {
             Account account = accountRepository.saveAndFlush(AccountHelper.buildAccount(UUID.randomUUID(),"test@gmail.com", passwordEncoder.encode("password")))
             AccountUpdatePasswordRequest request = AccountHelper.buildAccountUpdatePasswordRequest()
         when:
-            ResponseEntity<Void> result = httpPut("/accounts/{accountId}/password", request, Void.class, account.id)
+            ResponseEntity<Void> result = httpPut(PASSWORD_UPDATE_URL, request, Void.class, account.id)
         then:
             result.statusCode == HttpStatus.OK
 
@@ -112,7 +120,7 @@ class AccountControllerTest extends BaseSpecification {
             AccountUpdatePasswordRequest request = AccountHelper.buildAccountUpdatePasswordRequest()
             request.setNewPassword(null)
         when:
-            ResponseEntity<Void> httpResult = httpPut("/accounts/{accountId}/password", request, Void.class, account.id)
+            ResponseEntity<Void> httpResult = httpPut(PASSWORD_UPDATE_URL, request, Void.class, account.id)
         then:
             httpResult.statusCode == HttpStatus.BAD_REQUEST
     }
@@ -123,7 +131,7 @@ class AccountControllerTest extends BaseSpecification {
             AccountUpdatePasswordRequest request = AccountHelper.buildAccountUpdatePasswordRequest()
             request.setOldPassword(null)
         when:
-            ResponseEntity<Void> httpResult = httpPut("/accounts/{accountId}/password", request, Void.class, account.id)
+            ResponseEntity<Void> httpResult = httpPut(PASSWORD_UPDATE_URL, request, Void.class, account.id)
         then:
             httpResult.statusCode == HttpStatus.BAD_REQUEST
     }
@@ -134,8 +142,21 @@ class AccountControllerTest extends BaseSpecification {
             AccountUpdatePasswordRequest request = AccountHelper.buildAccountUpdatePasswordRequest()
             request.setRepeatPassword(null)
         when:
-            ResponseEntity<Void> httpResult = httpPut("/accounts/{accountId}/password", request, Void.class, account.id)
+            ResponseEntity<Void> httpResult = httpPut(PASSWORD_UPDATE_URL, request, Void.class, account.id)
         then:
             httpResult.statusCode == HttpStatus.BAD_REQUEST
+    }
+
+    def"should get accounts"() {
+        given:
+            Account account = accountRepository.saveAndFlush(AccountHelper.buildAccount())
+            Account account1 = accountRepository.saveAndFlush(AccountHelper.buildAccount(UUID.randomUUID(), "test1@gmail.com"))
+            def type = new ParameterizedTypeReference<List<Account>>() {}
+        when:
+            ResponseEntity<List<Account>> result = httpGet(BASE_URL, type)
+        then:
+            result.statusCode == HttpStatus.OK
+            result.body.size() == 2
+
     }
 }

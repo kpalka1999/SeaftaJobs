@@ -10,17 +10,21 @@ import com.seafta.service.domain.persistence.model.enums.Technology;
 import com.seafta.service.domain.persistence.model.offer.Offer;
 import com.seafta.service.domain.persistence.repository.OfferRepository;
 import com.seafta.service.domain.request.offer.OfferCreateRequest;
+import com.seafta.service.domain.request.offer.OfferSearchFilter;
 import com.seafta.service.domain.request.offer.OfferUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.owasp.security.logging.SecurityMarkers;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -60,9 +64,9 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<Offer> getOffers(@NotNull Level level, @NotNull Location location, @NotNull Technology technology) {
+    public List<Offer> getOffers(Level level, Location location, Technology technology) {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Getting offers by {level: {}, location: {}, technology: {}}", level, location, technology);
-        List<Offer> result = offerRepository.findAllByLevelAndLocationAndTechnology(level, location, technology);
+        List<Offer> result = filterOffers(offerRepository.findAll(), level, location, technology);
         log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Got offers {result: {}}", result);
         return result;
     }
@@ -70,7 +74,7 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> getOffersByAccount(@NotNull UUID accountId) {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Getting offers by {accountId: {}}", accountId);
-        List<Offer> result = offerRepository.findAllByAccount_Id(accountId);
+        List<Offer> result = offerRepository.findAllByAccountId(accountId);
         log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Got offers {result: {}}", result);
         return result;
     }
@@ -80,5 +84,18 @@ public class OfferServiceImpl implements OfferService {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Deleting offer {offerId: {}}", offerId);
         offerRepository.deleteById(offerId);
         log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Deleted offer {offerId: {}}", offerId);
+    }
+
+    public List<Offer> filterOffers(List<Offer> offers, Level level, Location location, Technology technology) {
+        if(level != Level.ALL) {
+            offers = offers.stream().filter(e -> e.getLevel() == level).collect(Collectors.toList());
+        }
+        if(location != Location.ALL) {
+            offers = offers.stream().filter(e -> e.getLocation() == location).collect(Collectors.toList());
+        }
+        if(technology != Technology.ALL) {
+            offers = offers.stream().filter(e -> e.getTechnology() == technology).collect(Collectors.toList());
+        }
+        return offers;
     }
 }

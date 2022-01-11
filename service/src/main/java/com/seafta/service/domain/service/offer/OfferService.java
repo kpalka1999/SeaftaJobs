@@ -8,6 +8,7 @@ import com.seafta.service.domain.persistence.model.enums.Location;
 import com.seafta.service.domain.persistence.model.enums.Technology;
 import com.seafta.service.domain.persistence.model.offer.Offer;
 import com.seafta.service.domain.request.offer.OfferCreateRequest;
+import com.seafta.service.domain.request.offer.OfferSearchFilter;
 import com.seafta.service.domain.request.offer.OfferUpdateRequest;
 
 import javax.validation.Valid;
@@ -19,7 +20,7 @@ public interface OfferService {
     OfferSnapshot createOffer(@NotNull @Valid OfferCreateRequest request);
     OfferDetails getOffer(@NotNull UUID offerId);
     OfferUpdatedSnapshot updateOffer(@NotNull UUID offerId, @NotNull @Valid OfferUpdateRequest request);
-    List<Offer> getOffers(@NotNull Level level, @NotNull Location location, @NotNull Technology technology);
+    List<Offer> getOffers(Level level, Location location, Technology technology);
     List<Offer> getOffersByAccount(@NotNull UUID accountId);
     void deleteOffer(@NotNull UUID offerId);
 }

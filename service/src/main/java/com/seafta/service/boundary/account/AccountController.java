@@ -24,6 +24,7 @@ import java.util.UUID;
 public class AccountController implements AccountApi{
 
     private final AccountService accountService;
+
     @Override
     public AccountSnapshot createAccount(@NotNull @Valid AccountCreateRequest request) {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Account Controller: Creating new account {request: {}}", request);

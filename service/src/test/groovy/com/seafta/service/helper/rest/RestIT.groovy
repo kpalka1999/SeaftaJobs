@@ -43,6 +43,10 @@ class RestIT extends Specification {
         restTemplate.exchange(url, HttpMethod.GET, assignHeaders(), type)
     }
 
+    def <T> ResponseEntity<T> httpGet(String url, ParameterizedTypeReference<T> type, Object... vars) {
+        restTemplate.exchange(url, HttpMethod.GET, assignHeaders(), type, vars)
+    }
+
     
     def <T> ResponseEntity<T> httpGet(String url, Class<T> type, Object... vars) {
         restTemplate.exchange(url, HttpMethod.GET, assignHeaders(), type, vars)

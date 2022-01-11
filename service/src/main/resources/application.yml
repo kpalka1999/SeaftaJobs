@@ -34,7 +34,7 @@ spring:
     username: seaftajobs
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         enable_lazy_load_no_trans: true

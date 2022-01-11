@@ -72,11 +72,6 @@ public class Account {
             fetch = FetchType.EAGER)
     private Set<AccountRole> roles;
 
-    @OneToMany(mappedBy = "account",
-               cascade = CascadeType.ALL,
-               fetch = FetchType.EAGER)
-    private Set<Offer> offers;
-
     public static Account buildUserAccount(@NotNull @Valid AccountCreateRequest request,
                                         @NotNull PasswordEncoder passwordEncoder) {
         AccountRole role = AccountRole.buildUserRole(AccountRole.RoleType.USER);
