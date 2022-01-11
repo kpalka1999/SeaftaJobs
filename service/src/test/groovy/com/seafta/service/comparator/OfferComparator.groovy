@@ -11,6 +11,7 @@ class OfferComparator {
 
     static boolean compare(Offer offer, OfferSnapshot snapshot) {
         assert offer.id == snapshot.offerId
+        assert offer.accountId == snapshot.accountId
         assert offer.companyName == snapshot.companyName
         assert offer.level == snapshot.level
         assert offer.location == snapshot.location

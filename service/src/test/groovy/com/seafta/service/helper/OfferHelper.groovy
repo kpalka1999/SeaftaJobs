@@ -7,6 +7,7 @@ import com.seafta.service.domain.persistence.model.enums.Technology
 import com.seafta.service.domain.persistence.model.offer.Offer
 import com.seafta.service.domain.persistence.model.offer.Stack
 import com.seafta.service.domain.request.offer.OfferCreateRequest
+import com.seafta.service.domain.request.offer.OfferSearchFilter
 import com.seafta.service.domain.request.offer.OfferUpdateRequest
 
 import java.time.Clock
@@ -82,6 +83,16 @@ class OfferHelper {
                 .technology(technology)
                 .description(description)
                 .technologyStack(technologyStack)
+                .build()
+    }
+
+    static OfferSearchFilter buildOfferSearchFilter(Level level = Level.JUNIOR,
+                                                    Location location = Location.KRAKOW,
+                                                    Technology technology = Technology.JAVA) {
+        OfferSearchFilter.builder()
+                .level(level)
+                .location(location)
+                .technology(technology)
                 .build()
     }
 }

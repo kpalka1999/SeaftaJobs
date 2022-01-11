@@ -10,6 +10,7 @@ import com.seafta.service.domain.persistence.model.enums.Technology;
 import com.seafta.service.domain.persistence.model.offer.Offer;
 import com.seafta.service.domain.persistence.repository.OfferRepository;
 import com.seafta.service.domain.request.offer.OfferCreateRequest;
+import com.seafta.service.domain.request.offer.OfferSearchFilter;
 import com.seafta.service.domain.request.offer.OfferUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,7 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<Offer> getOffers(@NotNull Level level, @NotNull Location location, @NotNull Technology technology) {
+    public List<Offer> getOffers(Level level, Location location, Technology technology) {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Offer service: Getting offers by {level: {}, location: {}, technology: {}}", level, location, technology);
         List<Offer> result = filterOffers(offerRepository.findAll(), level, location, technology);
         log.debug(SecurityMarkers.CONFIDENTIAL, "Offer service: Got offers {result: {}}", result);

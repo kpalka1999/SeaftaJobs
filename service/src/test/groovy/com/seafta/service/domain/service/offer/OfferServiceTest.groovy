@@ -19,6 +19,7 @@ import com.seafta.service.domain.request.account.AccountCreateRequest
 import com.seafta.service.domain.request.account.AccountUpdatePasswordRequest
 import com.seafta.service.domain.request.account.AccountUpdateRequest
 import com.seafta.service.domain.request.offer.OfferCreateRequest
+import com.seafta.service.domain.request.offer.OfferSearchFilter
 import com.seafta.service.domain.request.offer.OfferUpdateRequest
 import com.seafta.service.domain.service.account.AccountService
 import com.seafta.service.helper.AccountHelper
@@ -99,7 +100,5 @@ class OfferServiceTest extends Specification {
         then:
             offerRepository.count() == 0
             !offerRepository.existsById(offer.id)
-
-
     }
 }
