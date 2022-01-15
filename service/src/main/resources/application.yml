@@ -5,6 +5,10 @@ server:
   port: 8080
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 2MB
   resources:
     static-locations: /resources/static/logo.jpg
   security:
