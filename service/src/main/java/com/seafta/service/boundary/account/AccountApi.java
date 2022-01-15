@@ -8,6 +8,7 @@ import com.seafta.service.domain.request.account.AccountCreateRequest;
 import com.seafta.service.domain.request.account.AccountUpdatePasswordRequest;
 import com.seafta.service.domain.request.account.AccountUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequestMapping("/accounts")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public interface AccountApi {
 
     //todo add permission @PreAuthorize()
