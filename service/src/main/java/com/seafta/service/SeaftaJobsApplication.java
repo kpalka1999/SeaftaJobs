@@ -40,6 +40,17 @@ public class SeaftaJobsApplication {
                     .lastName("320")
                     .description("description")
                     .gitHubUrl("gitHubUrl")
+                    .isUserAccount(true)
+                    .build());
+
+            accountService.createAccount(AccountCreateRequest.builder()
+                    .email("test69@gmail.com")
+                    .password("password")
+                    .firstName("elo")
+                    .lastName("320")
+                    .description("description")
+                    .gitHubUrl("gitHubUrl")
+                    .isUserAccount(false)
                     .build());
 
             offerService.createOffer(OfferCreateRequest.builder()

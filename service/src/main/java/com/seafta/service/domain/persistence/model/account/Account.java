@@ -74,7 +74,12 @@ public class Account {
 
     public static Account buildUserAccount(@NotNull @Valid AccountCreateRequest request,
                                         @NotNull PasswordEncoder passwordEncoder) {
-        AccountRole role = AccountRole.buildUserRole(AccountRole.RoleType.USER);
+        AccountRole role;
+        if(request.isUserAccount()) {
+            role = AccountRole.buildUserRole(AccountRole.RoleType.USER);
+        } else {
+            role = AccountRole.buildUserRole(AccountRole.RoleType.COMPANY);
+        }
         Account account = Account.builder()
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))

@@ -37,4 +37,6 @@ public class AccountCreateRequest {
     private String description;
 
     private String gitHubUrl;
+
+    private boolean isUserAccount;
 }

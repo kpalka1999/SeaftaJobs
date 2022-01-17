@@ -40,6 +40,8 @@ public class OfferDetails {
     @NotNull
     private String description;
 
+    private String mainDescription;
+
     @NotNull
     private Set<Stack> technologyStack;
 
