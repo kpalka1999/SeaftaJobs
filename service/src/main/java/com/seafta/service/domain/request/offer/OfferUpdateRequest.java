@@ -38,6 +38,9 @@ public class OfferUpdateRequest {
     private Technology technology;
 
     @NotBlank
+    private String mainDescription;
+
+    @NotBlank
     private String description;
 
     @NotNull

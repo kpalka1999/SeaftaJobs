@@ -14,6 +14,7 @@ import com.seafta.service.domain.request.offer.OfferSearchFilter;
 import com.seafta.service.domain.request.offer.OfferUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.core.IsNull;
 import org.owasp.security.logging.SecurityMarkers;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;

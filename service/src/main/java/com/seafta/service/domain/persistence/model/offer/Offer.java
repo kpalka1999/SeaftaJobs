@@ -51,6 +51,8 @@ public class Offer implements Serializable {
 
     private Technology technology;
 
+    private String mainDescription;
+
     private String description;
 
     @NotNull
@@ -69,6 +71,7 @@ public class Offer implements Serializable {
                 .level(request.getLevel())
                 .location(request.getLocation())
                 .technology(request.getTechnology())
+                .mainDescription(request.getMainDescription())
                 .description(request.getDescription())
                 .created(OffsetDateTime.now(Clock.systemUTC()))
                 .technologyStack(stacks)
@@ -83,6 +86,7 @@ public class Offer implements Serializable {
         this.location = request.getLocation();
         this.technology = request.getTechnology();
         this.description = request.getDescription();
+        this.mainDescription = request.getMainDescription();
         return this;
     }
 
