@@ -53,18 +53,19 @@ public class Offer implements Serializable {
 
     private String mainDescription;
 
+    @Column(length = 10000)
     private String description;
 
     @NotNull
     private OffsetDateTime created;
 
-    @OneToMany(mappedBy = "offer",
-               cascade = CascadeType.ALL,
-               fetch = FetchType.EAGER)
-    private Set<Stack> technologyStack;
+//    @OneToMany(mappedBy = "offer",
+//               cascade = CascadeType.ALL,
+//               fetch = FetchType.EAGER)
+//    private transient Set<Stack> technologyStack;
 
     public static Offer buildOffer(@NotNull @Valid OfferCreateRequest request) {
-        Set<Stack> stacks = request.getTechnologyStack();
+//        Set<Stack> stacks = request.getTechnologyStack();
         Offer offer = Offer.builder()
                 .accountId(request.getAccountId())
                 .companyName(request.getCompanyName())
@@ -74,9 +75,9 @@ public class Offer implements Serializable {
                 .mainDescription(request.getMainDescription())
                 .description(request.getDescription())
                 .created(OffsetDateTime.now(Clock.systemUTC()))
-                .technologyStack(stacks)
+//                .technologyStack(stacks)
                 .build();
-        stacks.forEach(stack -> stack.setOffer(offer));
+//        stacks.forEach(stack -> stack.setOffer(offer));
         return offer;
     }
 

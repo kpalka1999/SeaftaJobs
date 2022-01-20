@@ -11,6 +11,7 @@ import com.seafta.service.domain.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.owasp.security.logging.SecurityMarkers;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -69,5 +70,13 @@ public class AccountController implements AccountApi{
         log.trace(SecurityMarkers.CONFIDENTIAL, "Account Controller: Changing password {accountId: {}, request: {}}", accountId, request);
         accountService.changePassword(accountId, request);
         log.debug(SecurityMarkers.CONFIDENTIAL, "Account Controller: Changed password {accountId: {}", accountId);
+    }
+
+    public Account getLoggedAccountDetails() {
+        log.trace(SecurityMarkers.CONFIDENTIAL, "Account Controller: Getting details about logged user");
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account result = accountService.getAccountByUsername(name);
+        log.debug(SecurityMarkers.CONFIDENTIAL, "Account Controller: Got details about logged user {result: {}}", result);
+        return result;
     }
 }

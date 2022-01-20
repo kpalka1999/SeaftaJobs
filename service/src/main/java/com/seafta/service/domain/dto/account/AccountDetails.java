@@ -31,4 +31,6 @@ public class AccountDetails {
   private String mainDescription;
 
   private String gitHubUrl;
+
+  private boolean isAccount;
 }

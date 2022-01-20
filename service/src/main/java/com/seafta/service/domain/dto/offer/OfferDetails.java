@@ -42,8 +42,8 @@ public class OfferDetails {
 
     private String mainDescription;
 
-    @NotNull
-    private Set<Stack> technologyStack;
+//    @NotNull
+//    private Set<Stack> technologyStack;
 
 
 

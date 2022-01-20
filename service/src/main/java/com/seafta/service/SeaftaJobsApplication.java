@@ -1,5 +1,6 @@
 package com.seafta.service;
 
+import com.seafta.service.domain.dto.account.AccountSnapshot;
 import com.seafta.service.domain.persistence.model.account.Account;
 import com.seafta.service.domain.persistence.model.enums.Level;
 import com.seafta.service.domain.persistence.model.enums.Location;
@@ -13,14 +14,9 @@ import com.seafta.service.domain.service.offer.OfferService;
 import org.mapstruct.ap.internal.util.Collections;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -33,7 +29,7 @@ public class SeaftaJobsApplication {
     @Bean
     CommandLineRunner run(AccountService accountService, OfferService offerService) {
         return args -> {
-            accountService.createAccount(AccountCreateRequest.builder()
+             AccountSnapshot accountUser = accountService.createAccount(AccountCreateRequest.builder()
                     .email("test420@gmail.com")
                     .password("password")
                     .firstName("elo")
@@ -43,7 +39,7 @@ public class SeaftaJobsApplication {
                     .isUserAccount(true)
                     .build());
 
-            accountService.createAccount(AccountCreateRequest.builder()
+            AccountSnapshot accountCompany = accountService.createAccount(AccountCreateRequest.builder()
                     .email("test69@gmail.com")
                     .password("password")
                     .firstName("elo")
@@ -54,64 +50,60 @@ public class SeaftaJobsApplication {
                     .build());
 
             offerService.createOffer(OfferCreateRequest.builder()
-                    .accountId(UUID.randomUUID())
+                    .accountId(accountCompany.getAccountId())
                     .companyName("Accenture Sp. z o.o.")
                     .level(Level.JUNIOR)
                     .location(Location.KRAKOW)
                     .technology(Technology.JAVA)
                     .description("description")
                     .mainDescription("Junior Java Developer")
-                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
+//                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
                     .build());
             offerService.createOffer(OfferCreateRequest.builder()
-                    .accountId(UUID.randomUUID())
+                    .accountId(accountCompany.getAccountId())
                     .companyName("Sollers Consulting Sp. z o.o")
                     .level(Level.JUNIOR)
                     .location(Location.KRAKOW)
                     .technology(Technology.JAVA)
                     .description("descriptddion")
                     .mainDescription("Java Developer Salesforce")
-                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
+//                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
                     .build());
             offerService.createOffer(OfferCreateRequest.builder()
-                    .accountId(UUID.randomUUID())
+                    .accountId(accountCompany.getAccountId())
                     .companyName("CodeAlly")
                     .level(Level.JUNIOR)
                     .location(Location.KRAKOW)
                     .technology(Technology.JAVA)
                     .description("desffffffffffftddion")
                     .mainDescription("Junior Developer Backend")
-                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
+//                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
                     .build());
             offerService.createOffer(OfferCreateRequest.builder()
-                    .accountId(UUID.randomUUID())
+                    .accountId(accountCompany.getAccountId())
                     .companyName("Nokia")
                     .level(Level.JUNIOR)
                     .location(Location.KRAKOW)
                     .technology(Technology.JAVA)
                     .description("desffffffffffftddion")
                     .mainDescription("Java Developer")
-                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
+//                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
                     .build());
+
             offerService.createOffer(OfferCreateRequest.builder()
-                    .accountId(UUID.randomUUID())
-                    .companyName("Nokia")
+                    .accountId(accountCompany.getAccountId())
+                    .companyName("Nokia Zjebs")
                     .level(Level.JUNIOR)
                     .location(Location.KRAKOW)
                     .technology(Technology.JAVA)
-                    .description("desffffffffffftddion")
-                    .mainDescription("Java Developer")
-                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
-                    .build());
-            offerService.createOffer(OfferCreateRequest.builder()
-                    .accountId(UUID.randomUUID())
-                    .companyName("Nokia")
-                    .level(Level.JUNIOR)
-                    .location(Location.WARSZAWA)
-                    .technology(Technology.PHP)
-                    .description("desffffffffffftddion")
-                    .mainDescription("Java Developer")
-                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
+                    .description("Nokia is committed to innovation and technology leadership across mobile, fixed and cloud networks. Your career here will have a positive impact on people’s lives and will help us build the capabilities needed for a more productive, sustainable, and inclusive world. We challenge ourselves to create an inclusive way of working where we are open to new ideas, empowered to take risks and fearless to bring our authentic selves to work.\n" +
+                            " \n" +
+                            "The team you'll be part of\n" +
+                            "\n" +
+                            "Our Business Group is a leader in wireless mobility networks and associated services. With more than 3.500 patent families essential for 5G we have a strong 5G portfolio and are a front runner in open and virtualized radio access networks (O-RAN and vRAN).\n" +
+                            "The Mobile Networks Customer Documentation team creates hardware and software descriptions and instructions for the use of the mobile operator personnel. Our goal is to bring the end-user documentation into the visual online world.")
+                    .mainDescription("Junior Plereza Developer")
+//                    .technologyStack(Collections.asSet(Stack.buildStack("JAVA", StackLevel.JUNIOR)))
                     .build());
         };
     }

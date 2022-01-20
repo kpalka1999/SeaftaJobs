@@ -31,9 +31,9 @@ import static org.springframework.http.HttpStatus.OK;
 public interface FileApi {
 
     @Operation(summary = "CreateFile", description = "FILE_CREATE_POST")
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(CREATED)
-    void store(@RequestParam("receiverId") UUID receiverId, @RequestParam(value = "file")MultipartFile file) throws IOException;
+    ResponseEntity<String> store(@RequestParam("receiverId") UUID receiverId, @RequestParam(value = "file")MultipartFile file) throws IOException;
 
     @Operation(summary = "GetFile", description = "FILE_GET")
     @GetMapping(value = "/{fileId}")

@@ -44,6 +44,6 @@ public class OfferCreateRequest {
     @NotBlank
     private String description;
 
-    @NotNull
-    private Set<Stack> technologyStack;
+//    @NotNull
+//    private Set<Stack> technologyStack;
 }

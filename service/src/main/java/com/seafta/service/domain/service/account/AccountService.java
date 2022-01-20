@@ -21,5 +21,6 @@ public interface AccountService {
     List<Account> getAccounts();
     void deleteAccount(@NotNull UUID accountId);
     void changePassword(@NotNull UUID accountId, @NotNull @Valid AccountUpdatePasswordRequest request);
+    String getNameByAccountId(UUID id);
 
 }

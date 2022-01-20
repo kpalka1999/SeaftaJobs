@@ -42,4 +42,16 @@ public class MessageController {
     public List<Message> getMessage(@PathVariable("accountId") UUID accountId, @PathVariable("companyId") UUID companyId) {
         return messageService.getMessage(accountId, companyId);
     }
+
+    @GetMapping(value = "/account/{accountId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    public List<Message> getAccountMessage(@PathVariable("accountId") UUID accountId) {
+        return messageService.getMessageByAccountId(accountId);
+    }
+
+    @GetMapping(value = "/company/{accountId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    public List<Message> getCompanyMessage(@PathVariable("accountId") UUID accountId) {
+        return messageService.getMessageByCompanyId(accountId);
+    }
 }

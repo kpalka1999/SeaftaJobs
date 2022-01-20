@@ -40,23 +40,21 @@ public class Message {
     @NotNull
     private UUID companyId;
 
-    @NotBlank
+    private String content;
+
     private String senderName;
 
-    @NotBlank
     private String recipientName;
-
-    private String content;
 
     private OffsetDateTime created;
 
-    public static Message buildMessage(MessageRequest request) {
+    public static Message buildMessage(MessageRequest request, String senderName, String recipientName) {
         return Message.builder()
                 .companyId(request.getCompanyId())
                 .accountId(request.getAccountId())
-                .senderName(request.getSenderName())
-                .recipientName(request.getRecipientName())
                 .content(request.getContent())
+                .senderName(senderName)
+                .recipientName(recipientName)
                 .created(OffsetDateTime.now(Clock.systemUTC()))
                 .build();
     }
