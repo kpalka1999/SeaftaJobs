@@ -62,4 +62,9 @@ public interface AccountApi {
     @PutMapping(value = "/{accountId}/password", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     void changePasswordAccount(@PathVariable("accountId") UUID accountId, @RequestBody @Valid AccountUpdatePasswordRequest request);
+
+    @Operation(summary = "GetLoggedAccount", description = "ACCOUNT_LOGGED_GET")
+    @GetMapping(value = "/logged", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    Account getLoggedAccountDetails();
 }

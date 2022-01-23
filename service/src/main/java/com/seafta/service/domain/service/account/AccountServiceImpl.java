@@ -116,6 +116,11 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         return status;
     }
 
+    public String getNameByAccountId(UUID id) {
+         Account account = accountRepository.getOne(id);
+         return account.getEmail();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //Email from the request is the username

@@ -40,6 +40,6 @@ public class OfferUpdatedSnapshot {
     @NotNull
     private String description;
 
-    @NotNull
-    private Set<Stack> technologyStack;
+//    @NotNull
+//    private Set<Stack> technologyStack;
 }

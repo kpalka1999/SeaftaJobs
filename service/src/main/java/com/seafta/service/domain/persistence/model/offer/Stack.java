@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Data
@@ -23,7 +24,7 @@ import java.util.UUID;
 @Builder
 @EqualsAndHashCode(exclude = "offer")
 @Entity
-public class Stack {
+public class Stack implements Serializable {
 
     @Id
     @GeneratedValue

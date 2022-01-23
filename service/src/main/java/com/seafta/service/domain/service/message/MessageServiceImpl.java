@@ -3,6 +3,7 @@ package com.seafta.service.domain.service.message;
 import com.seafta.service.domain.persistence.model.message.Message;
 import com.seafta.service.domain.persistence.repository.MessageRepository;
 import com.seafta.service.domain.request.message.MessageRequest;
+import com.seafta.service.domain.service.account.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,15 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     MessageRepository messageRepository;
+
+    @Autowired
+    AccountService accountService;
+
     @Override
     public void sendMessage(MessageRequest request) {
-        Message message = Message.buildMessage(request);
+        String senderName = accountService.getNameByAccountId(request.getAccountId());
+        String recipientName = accountService.getNameByAccountId(request.getCompanyId());
+        Message message = Message.buildMessage(request, senderName, recipientName);
         messageRepository.save(message);
     }
 
@@ -31,4 +38,18 @@ public class MessageServiceImpl implements MessageService {
         List<Message> messages = messageRepository.findAllByAccountIdAndCompanyIdOrderByCreated(accountId, companyId);
         return messages;
     }
+
+    @Override
+    public List<Message> getMessageByAccountId(UUID accountId) {
+        List<Message> messages = messageRepository.findAllByAccountIdOrderByCreated(accountId);
+        return messages;
+    }
+
+    @Override
+    public List<Message> getMessageByCompanyId(UUID accountId) {
+        List<Message> messages = messageRepository.findAllByCompanyIdOrderByCreated(accountId);
+        return messages;
+    }
+
+
 }

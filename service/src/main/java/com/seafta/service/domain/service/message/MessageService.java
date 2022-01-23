@@ -10,4 +10,6 @@ public interface MessageService {
 
     void sendMessage(MessageRequest request);
     List<Message> getMessage(UUID accountId, UUID companyId);
+    List<Message> getMessageByAccountId(UUID accountId);
+    List<Message> getMessageByCompanyId(UUID accountId);
 }

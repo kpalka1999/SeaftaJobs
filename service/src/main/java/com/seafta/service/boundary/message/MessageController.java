@@ -3,6 +3,7 @@ package com.seafta.service.boundary.message;
 import com.seafta.service.domain.persistence.model.message.Message;
 import com.seafta.service.domain.request.message.MessageRequest;
 import com.seafta.service.domain.service.message.MessageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/message")
+@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class MessageController {
 
@@ -39,5 +41,17 @@ public class MessageController {
     @ResponseStatus(OK)
     public List<Message> getMessage(@PathVariable("accountId") UUID accountId, @PathVariable("companyId") UUID companyId) {
         return messageService.getMessage(accountId, companyId);
+    }
+
+    @GetMapping(value = "/account/{accountId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    public List<Message> getAccountMessage(@PathVariable("accountId") UUID accountId) {
+        return messageService.getMessageByAccountId(accountId);
+    }
+
+    @GetMapping(value = "/company/{accountId}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(OK)
+    public List<Message> getCompanyMessage(@PathVariable("accountId") UUID accountId) {
+        return messageService.getMessageByCompanyId(accountId);
     }
 }

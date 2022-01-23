@@ -38,8 +38,11 @@ public class OfferUpdateRequest {
     private Technology technology;
 
     @NotBlank
+    private String mainDescription;
+
+    @NotBlank
     private String description;
 
-    @NotNull
-    private Set<Stack> technologyStack;
+//    @NotNull
+//    private Set<Stack> technologyStack;
 }

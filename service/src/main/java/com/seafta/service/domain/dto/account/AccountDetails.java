@@ -28,5 +28,9 @@ public class AccountDetails {
 
   private String description;
 
+  private String mainDescription;
+
   private String gitHubUrl;
+
+  private boolean isAccount;
 }

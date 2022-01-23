@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -22,12 +21,6 @@ public class MessageRequest {
 
     @NotNull
     private UUID companyId;
-
-    @NotBlank
-    private String senderName;
-
-    @NotBlank
-    private String recipientName;
 
     private String content;
 }

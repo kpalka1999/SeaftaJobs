@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Slf4j
+@RestController
 @RequiredArgsConstructor
 public class OfferController implements OfferApi {
 

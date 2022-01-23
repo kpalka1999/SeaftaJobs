@@ -8,7 +8,8 @@ CREATE TABLE account (
     description     text,
     git_hub_url     text,
     created         timestamp          NOT NULL,
-    modified        timestamp          NOT NULL
+    modified        timestamp          NOT NULL,
+    is_account      boolean
 );
 
 ALTER TABLE ONLY account ADD CONSTRAINT PK_account PRIMARY KEY (id);

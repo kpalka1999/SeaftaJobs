@@ -67,6 +67,9 @@ public class Account {
     @NotNull
     private OffsetDateTime modified;
 
+    @Column(name = "is_account")
+    private boolean isAccount;
+
     @OneToMany(mappedBy = "account",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
@@ -74,7 +77,12 @@ public class Account {
 
     public static Account buildUserAccount(@NotNull @Valid AccountCreateRequest request,
                                         @NotNull PasswordEncoder passwordEncoder) {
-        AccountRole role = AccountRole.buildUserRole(AccountRole.RoleType.USER);
+        AccountRole role;
+        if(request.isUserAccount()) {
+            role = AccountRole.buildUserRole(AccountRole.RoleType.USER);
+        } else {
+            role = AccountRole.buildUserRole(AccountRole.RoleType.COMPANY);
+        }
         Account account = Account.builder()
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
@@ -84,6 +92,7 @@ public class Account {
                 .gitHubUrl(request.getGitHubUrl())
                 .created(OffsetDateTime.now(Clock.systemUTC()))
                 .modified(OffsetDateTime.now(Clock.systemUTC()))
+                .isAccount(request.isUserAccount())
                 .roles(Collections.singleton(role))
                 .build();
         role.setAccount(account);
