@@ -32,7 +32,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public interface AccountApi {
 
-    //todo add permission @PreAuthorize()
     @Operation(summary = "CreateAccount", description = "ACCOUNT_CREATE_POST")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)

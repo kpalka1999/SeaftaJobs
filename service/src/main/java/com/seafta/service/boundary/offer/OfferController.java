@@ -8,7 +8,6 @@ import com.seafta.service.domain.persistence.model.enums.Location;
 import com.seafta.service.domain.persistence.model.enums.Technology;
 import com.seafta.service.domain.persistence.model.offer.Offer;
 import com.seafta.service.domain.request.offer.OfferCreateRequest;
-import com.seafta.service.domain.request.offer.OfferSearchFilter;
 import com.seafta.service.domain.request.offer.OfferUpdateRequest;
 import com.seafta.service.domain.service.offer.OfferService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +26,7 @@ import java.util.UUID;
 public class OfferController implements OfferApi {
 
     private final OfferService offerService;
+
     @Override
     public OfferSnapshot createOffer(@NotNull @Valid OfferCreateRequest request) {
         log.trace(SecurityMarkers.CONFIDENTIAL, "Offer controller: Creating offer {request: {}}", request);
