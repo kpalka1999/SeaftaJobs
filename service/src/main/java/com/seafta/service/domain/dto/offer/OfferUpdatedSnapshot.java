@@ -3,14 +3,12 @@ package com.seafta.service.domain.dto.offer;
 import com.seafta.service.domain.persistence.model.enums.Level;
 import com.seafta.service.domain.persistence.model.enums.Location;
 import com.seafta.service.domain.persistence.model.enums.Technology;
-import com.seafta.service.domain.persistence.model.offer.Stack;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -40,6 +38,4 @@ public class OfferUpdatedSnapshot {
     @NotNull
     private String description;
 
-//    @NotNull
-//    private Set<Stack> technologyStack;
 }

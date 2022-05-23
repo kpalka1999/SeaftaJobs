@@ -31,8 +31,7 @@ class OfferHelper {
                             Location location = Location.KRAKOW,
                             Technology technology = Technology.JAVA,
                             String description = "description",
-                            OffsetDateTime created = OffsetDateTime.now(Clock.systemUTC()),
-                            Set<Stack> technologyStack = Collections.EMPTY_SET) {
+                            OffsetDateTime created = OffsetDateTime.now(Clock.systemUTC())) {
 
         Offer.builder()
             .id(id)
@@ -43,7 +42,6 @@ class OfferHelper {
             .technology(technology)
             .description(description)
             .created(created)
-            .technologyStack(technologyStack)
             .build()
     }
 
@@ -53,8 +51,7 @@ class OfferHelper {
                                                       Location location = Location.ALL,
                                                       Technology technology = Technology.ALL,
                                                       String description = "description",
-                                                      OffsetDateTime created = OffsetDateTime.now(Clock.systemUTC()),
-                                                      Set<Stack> technologyStack = Collections.EMPTY_SET) {
+                                                      OffsetDateTime created = OffsetDateTime.now(Clock.systemUTC())) {
         OfferCreateRequest.builder()
                 .accountId(accountId)
                 .companyName(companyName)
@@ -62,9 +59,7 @@ class OfferHelper {
                 .location(location)
                 .technology(technology)
                 .description(description)
-                .technologyStack(technologyStack)
                 .build()
-
     }
 
     static OfferUpdateRequest buildOfferUpdateRequest(UUID accountId = UUID.randomUUID(),
@@ -73,8 +68,7 @@ class OfferHelper {
                                                       Location location = Location.ALL,
                                                       Technology technology = Technology.ALL,
                                                       String description = "descriptionUpdated",
-                                                      OffsetDateTime created = OffsetDateTime.now(Clock.systemUTC()),
-                                                      Set<Stack> technologyStack = Collections.EMPTY_SET) {
+                                                      OffsetDateTime created = OffsetDateTime.now(Clock.systemUTC())) {
         OfferUpdateRequest.builder()
                 .accountId(accountId)
                 .companyName(companyName)
@@ -82,7 +76,6 @@ class OfferHelper {
                 .location(location)
                 .technology(technology)
                 .description(description)
-                .technologyStack(technologyStack)
                 .build()
     }
 
