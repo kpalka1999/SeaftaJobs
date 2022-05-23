@@ -17,7 +17,6 @@ class OfferComparator {
         assert offer.location == snapshot.location
         assert offer.technology == snapshot.technology
         assert offer.description == snapshot.description
-        assert offer.technologyStack == snapshot.technologyStack
         true
     }
 
@@ -28,7 +27,6 @@ class OfferComparator {
         assert offer.location == details.location
         assert offer.technology == details.technology
         assert offer.description == details.description
-        assert offer.technologyStack == details.technologyStack
         true
     }
 
@@ -39,7 +37,6 @@ class OfferComparator {
         assert offer.location == snapshot.location
         assert offer.technology == snapshot.technology
         assert offer.description == snapshot.description
-        assert offer.technologyStack == snapshot.technologyStack
         true
     }
 
@@ -49,7 +46,6 @@ class OfferComparator {
         assert request.location == snapshot.location
         assert request.technology == snapshot.technology
         assert request.description == snapshot.description
-        assert request.technologyStack == snapshot.technologyStack
         true
     }
 
@@ -59,7 +55,6 @@ class OfferComparator {
         assert request.location == snapshot.location
         assert request.technology == snapshot.technology
         assert request.description == snapshot.description
-        assert request.technologyStack == snapshot.technologyStack
         true
     }
 
@@ -70,7 +65,6 @@ class OfferComparator {
         assert offer.location == result.location
         assert offer.technology == result.technology
         assert offer.description == result.description
-        assert offer.technologyStack == result.technologyStack
         true
     }
 
@@ -80,9 +74,7 @@ class OfferComparator {
         assert offer.location == result.location
         assert offer.technology == result.technology
         assert offer.description == result.description
-        assert offer.technologyStack == result.technologyStack
         true
     }
-
 
 }

@@ -11,13 +11,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,7 +22,6 @@ import java.io.Serializable;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -59,13 +55,8 @@ public class Offer implements Serializable {
     @NotNull
     private OffsetDateTime created;
 
-//    @OneToMany(mappedBy = "offer",
-//               cascade = CascadeType.ALL,
-//               fetch = FetchType.EAGER)
-//    private transient Set<Stack> technologyStack;
 
     public static Offer buildOffer(@NotNull @Valid OfferCreateRequest request) {
-//        Set<Stack> stacks = request.getTechnologyStack();
         Offer offer = Offer.builder()
                 .accountId(request.getAccountId())
                 .companyName(request.getCompanyName())
@@ -75,9 +66,7 @@ public class Offer implements Serializable {
                 .mainDescription(request.getMainDescription())
                 .description(request.getDescription())
                 .created(OffsetDateTime.now(Clock.systemUTC()))
-//                .technologyStack(stacks)
                 .build();
-//        stacks.forEach(stack -> stack.setOffer(offer));
         return offer;
     }
 
