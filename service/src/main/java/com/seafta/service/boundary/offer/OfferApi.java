@@ -8,7 +8,6 @@ import com.seafta.service.domain.persistence.model.enums.Location;
 import com.seafta.service.domain.persistence.model.enums.Technology;
 import com.seafta.service.domain.persistence.model.offer.Offer;
 import com.seafta.service.domain.request.offer.OfferCreateRequest;
-import com.seafta.service.domain.request.offer.OfferSearchFilter;
 import com.seafta.service.domain.request.offer.OfferUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.Valid;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +32,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/offers")
 @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public interface OfferApi {
+
     @Operation(summary = "CreateOffer", description = "OFFER_CREATE_POST")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
